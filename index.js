@@ -94,9 +94,6 @@ fastify.route({
 
     const issues = await fetchIssues(includeBody, labels, org)
 
-    console.log('--------------------------------')
-    console.log(issues)
-
     reply.send({ issues })
   }
 })
