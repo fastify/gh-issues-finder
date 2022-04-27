@@ -1,13 +1,13 @@
 {
-  "name": "bench-template",
+  "name": "gh-issues-finder",
   "version": "1.0.0",
-  "description": "Template to start a new repository on the bench",
+  "description": "Tool to help find issues hat you can contribute to",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start": "node ."
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nearform/bench-template/issues"
+    "url": "https://github.com/nearform/gh-issues-finder/issues"
   },
-  "homepage": "https://github.com/nearform/bench-template#readme",
+  "homepage": "https://github.com/nearform/gh-issues-finder#readme",
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
@@ -32,5 +32,12 @@
   },
   "lint-staged": {
     "*.{js,jsx}": "eslint --cache --fix"
+  },
+  "dependencies": {
+    "@octokit/rest": "^18.12.0",
+    "dotenv": "^16.0.0",
+    "fastify": "^3.28.0",
+    "fastify-cors": "^6.0.3",
+    "pino": "^7.11.0"
   }
 }
