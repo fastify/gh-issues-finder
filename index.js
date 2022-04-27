@@ -32,6 +32,7 @@ const fetchIssues = async (includeBody, labels, org) => {
 
   const dedupeMap = new Map()
   for (let item of items) {
+    // eslint-disable-next-line no-unused-vars
     const [_, orgMatch, repoNameMatch] = item.repository_url.match(
       /https:\/\/api\.github\.com\/repos\/([a-zA-Z0-9\-_]+)\/([a-zA-Z0-9\-_]+)/
     )
