@@ -59,28 +59,8 @@ resource "google_cloud_run_service_iam_member" "github_actions_backend" {
   member = "serviceAccount:${google_service_account.github_actions.email}"
 }
 
-resource "google_cloud_run_service_iam_member" "github_actions_frontend" {
-  location = google_cloud_run_service.frontend.location
-  service = google_cloud_run_service.frontend.name
-  role = "roles/run.admin"
-  member = "serviceAccount:${google_service_account.github_actions.email}"
-}
-
-resource "google_cloud_run_service_iam_member" "github_actions_db_manager" {
-  location = google_cloud_run_service.db_manager.location
-  service = google_cloud_run_service.db_manager.name
-  role = "roles/run.admin"
-  member = "serviceAccount:${google_service_account.github_actions.email}"
-}
-
-resource "google_cloud_run_service_iam_member" "github_actions_storybook" {
-  location = google_cloud_run_service.storybook.location
-  service = google_cloud_run_service.storybook.name
-  role = "roles/run.admin"
-  member = "serviceAccount:${google_service_account.github_actions.email}"
-}
-
 resource "google_project_iam_member" "github_actions_service_account_user" {
+  project = var.gcp_project_id
   role    = "roles/iam.serviceAccountUser"
   member = "serviceAccount:${google_service_account.github_actions.email}"
 }
