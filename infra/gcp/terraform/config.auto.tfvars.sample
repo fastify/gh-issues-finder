@@ -1,0 +1,5 @@
+gcp_project_id = "gh-issues-finder" # Nearform GCP org - Titus
+region = "europe-west1"
+zone = "europe-west1-b"
+
+artifact_registry_repository_name = "gh-issues-finder"
