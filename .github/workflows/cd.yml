@@ -43,7 +43,7 @@ jobs:
         id: deploy
         run: >-
           gcloud run deploy ${{ env.RUN_SERVICE_NAME }}
-          --command="npm", "ci", "--ignore-scripts", "--only=production"
+          --args="--ignore-scripts", "--only=production"
           --region=${{ env.GCP_REGION }}
           --cpu=${{ env.RUN_CPU }}
           --memory=${{ env.RUN_MEM }}
