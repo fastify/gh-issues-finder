@@ -43,6 +43,7 @@ jobs:
         id: deploy
         run: >-
           gcloud run deploy ${{ env.RUN_SERVICE_NAME }}
+          --command="npm", "ci", "--ignore-scripts", "--only=production"
           --region=${{ env.GCP_REGION }}
           --cpu=${{ env.RUN_CPU }}
           --memory=${{ env.RUN_MEM }}
@@ -50,7 +51,7 @@ jobs:
           --source=.
           --set-env-vars='
           GH_AUTH_TOKEN={{ secrets.GH_AUTH_TOKEN }},
-          NODE_ENV=development,
+          NODE_ENV=production,
           PORT={{ env.PORT }}
           '
       - name: 'Retrieve the Cloud Run service url'
