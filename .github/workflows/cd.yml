@@ -22,7 +22,7 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           workload_identity_provider: '{{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}'
-          service_account: '{{ GCP_SERVICE_ACCOUNT }}'
+          service_account: '{{ secrets.GCP_SERVICE_ACCOUNT }}'
 
       - id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
