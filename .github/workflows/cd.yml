@@ -43,7 +43,6 @@ jobs:
         id: deploy
         run: >-
           gcloud run deploy ${{ env.RUN_SERVICE_NAME }}
-          --args="--ignore-scripts"
           --region=${{ env.GCP_REGION }}
           --cpu=${{ env.RUN_CPU }}
           --memory=${{ env.RUN_MEM }}
