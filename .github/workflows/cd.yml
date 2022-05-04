@@ -50,7 +50,6 @@ jobs:
           --source=.
           --set-env-vars='
           GH_AUTH_TOKEN={{ secrets.GH_AUTH_TOKEN }},
-          NODE_ENV=production,
           PORT={{ env.PORT }}
           '
       - name: 'Retrieve the Cloud Run service url'
