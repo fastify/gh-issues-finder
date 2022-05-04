@@ -24,44 +24,23 @@ jobs:
       GCP_PROJECT_ID: gh-issues-finder
       GCP_REGION: europe-west1
       RUN_SERVICE_NAME: ${{ github.event.inputs.run_service_name || 'gh-issues-finder-backend' }}
-      RUN_CPU: 1
-      RUN_MEM: 2G
-      PORT: 3000
 
     steps:
-      - name: Checkout project
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
+      - uses: actions/checkout@v3
 
-      - name: 'Authenticate with GCP'
+      - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          workload_identity_provider: 'projects/794116114096/locations/global/workloadIdentityPools/gh-issues-finder/providers/github-workflows'                                     
+          service_account: 'github-workflows@gh-issues-finder.iam.gserviceaccount.com'
 
-      - name: 'Deploy to Cloud Run'
-        id: deploy
-        run: >-
-          gcloud run deploy ${{ env.RUN_SERVICE_NAME }}
-          --region=${{ env.GCP_REGION }}
-          --cpu=${{ env.RUN_CPU }}
-          --memory=${{ env.RUN_MEM }}
-          --revision-suffix=${{ github.sha }}
-          --source=.
-          --set-env-vars='
-          GH_AUTH_TOKEN={{ secrets.GH_AUTH_TOKEN }},
-          PORT={{ env.PORT }}
-          '
-      - name: 'Retrieve the Cloud Run service url'
-        run: echo "RUN_URL=$(gcloud run services describe ${{ env.RUN_SERVICE_NAME }} --region=${{ env.GCP_REGION }} --format="value(status.url)")" >> $GITHUB_ENV
-
-      - name: 'Make the service public'
-        run: >-
-          gcloud run services add-iam-policy-binding ${{ env.RUN_SERVICE_NAME }}
-          --member="allUsers"
-          --role="roles/run.invoker"
-          --region=${{ env.GCP_REGION }}
-      - name: 'Show summary'
-        run: >-
-          echo "App successfully deployed to: ${{ env.RUN_URL }}.
-          Make sure that all settings in Zoom bot's configuration point at this url."
+      - id: deploy
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: ${{ env.RUN_SERVICE_NAME }}
+          region: ${{ env.GCP_REGION }}
+          project_id: ${{ env.GCP_PROJECT_ID }}
+          env_vars: >-
+              GH_AUTH_TOKEN={{ secrets.GH_AUTH_TOKEN }}
+          flags: --allow-unauthenticated --timeout=1800
+          source: .
