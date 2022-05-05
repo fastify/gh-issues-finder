@@ -1,0 +1,36 @@
+name: cd
+
+on:
+  push:
+    #branches: [master]
+
+  workflow_dispatch:
+
+jobs:
+  provision:
+    name: 'Provision and deploy'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - id: deploy
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: ${{ secrets.GCP_RUN_SERVICE_NAME }}
+          region: ${{ secrets.GCP_REGION }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          #env_vars: >-
+          #    GH_AUTH_TOKEN={{ secrets.GH_AUTH_TOKEN }}
+          flags: --allow-unauthenticated --timeout=1800
+          source: .
