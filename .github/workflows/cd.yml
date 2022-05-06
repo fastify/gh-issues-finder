@@ -22,7 +22,7 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           workload_identity_provider: 'projects/794116114096/locations/global/workloadIdentityPools/gh-issues-finder/providers/github-workflows'
-          service_account: 'sa-gh-issue-finder@gh-issues-finder.iam.gserviceaccount.com'
+          service_account: 'github-workflows@gh-issues-finder.iam.gserviceaccount.com'
 
       - id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
