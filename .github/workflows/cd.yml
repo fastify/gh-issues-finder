@@ -13,7 +13,7 @@ jobs:
 
     permissions:
       contents: 'read'
-      id-token: write
+      id-token: 'write'
 
     steps:
       - uses: actions/checkout@v3
@@ -21,16 +21,14 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          workload_identity_provider: 'projects/794116114096/locations/global/workloadIdentityPools/gh-issues-finder/providers/github-workflows'
+          service_account: 'sa-gh-issue-finder@gh-issues-finder.iam.gserviceaccount.com'
 
       - id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          service: ${{ secrets.GCP_RUN_SERVICE_NAME }}
-          region: ${{ secrets.GCP_REGION }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          #env_vars: >-
-          #    GH_AUTH_TOKEN={{ secrets.GH_AUTH_TOKEN }}
+          service: 'gh-issues-finder-backend'
+          region: 'europe-west1'
+          project_id: 'gh-issues-finder'
           flags: --allow-unauthenticated --timeout=1800
           source: .
