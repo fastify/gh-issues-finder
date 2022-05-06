@@ -29,6 +29,6 @@ jobs:
         with:
           service: 'gh-issues-finder-backend'
           region: 'europe-west1'
-          project_id: '794116114096'
+          project_id: 'gh-issues-finder'
           flags: --allow-unauthenticated --timeout=1800
           source: .
