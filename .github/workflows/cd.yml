@@ -2,7 +2,7 @@ name: cd
 
 on:
   push:
-    #branches: [master]
+    branches: [master]
 
   workflow_dispatch:
 
@@ -13,7 +13,7 @@ jobs:
 
     permissions:
       contents: 'read'
-      id-token: write
+      id-token: 'write'
 
     steps:
       - uses: actions/checkout@v3
@@ -30,7 +30,5 @@ jobs:
           service: ${{ secrets.GCP_RUN_SERVICE_NAME }}
           region: ${{ secrets.GCP_REGION }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          #env_vars: >-
-          #    GH_AUTH_TOKEN={{ secrets.GH_AUTH_TOKEN }}
           flags: --allow-unauthenticated --timeout=1800
           source: .
