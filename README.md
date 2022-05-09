@@ -1,5 +1,5 @@
-![CI](https://github.com/nearform/gh-issues-finder/.github/workflows/ci.yml/badge.svg?event=push)
-![CD](https://github.com/nearform/gh-issues-finder/.github/workflows/cd.yml/badge.svg?event=push)
+[![Continuous Integration](https://github.com/nearform/gh-issues-finder/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/nearform/gh-issues-finder/actions/workflows/ci.yml)
+[![CD](https://github.com/nearform/gh-issues-finder/actions/workflows/cd.yml/badge.svg?event=push)](https://github.com/nearform/gh-issues-finder/actions/workflows/cd.yml)
 
 # gh-issues-finder
 Tool to help find issues hat you can contribute to
