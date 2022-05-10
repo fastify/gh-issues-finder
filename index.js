@@ -28,13 +28,14 @@ const fetchIssues = async (includeBody, labels, org) => {
       return issues.data.items
     })
   )
+
   const items = itemSearchResults.flat()
 
   const dedupeMap = new Map()
   for (let item of items) {
     // eslint-disable-next-line no-unused-vars
     const [_, orgMatch, repoNameMatch] = item.repository_url.match(
-      /https:\/\/api\.github\.com\/repos\/([a-zA-Z0-9\-_]+)\/([a-zA-Z0-9\-_]+)/
+      /https:\/\/api\.github\.com\/repos\/([a-zA-Z0-9\-_]+)\/(\.?[a-zA-Z0-9\-_]+)/
     )
     dedupeMap.set(item.html_url, {
       url: item.html_url,
@@ -42,8 +43,8 @@ const fetchIssues = async (includeBody, labels, org) => {
       comments: item.comments,
       body: includeBody ? item.body : undefined,
       author: {
-        name: item.user.login,
-        avatar_url: item.user.avatar_url,
+        name: item.user?.login,
+        avatar_url: item.user?.avatar_url,
         acc_url: item.user.html_url
       },
       project: {
