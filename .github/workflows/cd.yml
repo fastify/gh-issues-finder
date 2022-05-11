@@ -18,6 +18,5 @@ jobs:
           region: ${{ secrets.GCP_CLOUDRUN_SERVICE_REGION }}
           credentials: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          env_vars: APP_ID=${{ secrets.APP_ID }},PRIVATE_KEY=${{ secrets.PRIVATE_KEY }}
-          flags: --allow-unauthenticated
+          flags: --allow-unauthenticated --tiemout 1800
           source: .
