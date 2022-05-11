@@ -3,7 +3,6 @@
 require('dotenv').config()
 
 const fastify = require('fastify')({
-  //http2: true,
   logger: true
 })
 const logger = require('pino')()
@@ -14,7 +13,7 @@ const octokit = new Octokit({
   auth: process.env.GH_AUTH_TOKEN
 })
 
-fastify.register(require('fastify-cors'), {
+fastify.register(require('@fastify/cors'), {
   methods: ['GET']
 })
 
