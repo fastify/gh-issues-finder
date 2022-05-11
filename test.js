@@ -47,10 +47,7 @@ const mockIssue = {
   closed_at: null,
   author_association: 'NONE',
   active_lock_reason: null,
-  body:
-    'Im trying to get a Full Text Search working through Fastify and Mongoose. But it returns an empty array.\r\n' +
-    '\r\n' +
-    'There is no info online about this, so I just played with it for a while. in db.ts I set the:\r\n',
+  body: 'test_body',
   reactions: {
     url: 'https://api.github.com/repos/fastify/help/issues/478/reactions',
     total_count: 0,
@@ -101,6 +98,14 @@ tap.test('tests the "/api/find-issues" route', async t => {
     ...mockSearchIssuesAndPullRequests,
     data: { ...mockIssuesData, items: [mockIssue2] }
   })
+  searchIssuesStub.onCall(2).returns({
+    ...mockSearchIssuesAndPullRequests,
+    data: { ...mockIssuesData, items: [mockIssue1] }
+  })
+  searchIssuesStub.onCall(3).returns({
+    ...mockSearchIssuesAndPullRequests,
+    data: { ...mockIssuesData, items: [mockIssue2] }
+  })
 
   const build = t.mock('./app', {
     './fetchIssues': {
@@ -114,6 +119,7 @@ tap.test('tests the "/api/find-issues" route', async t => {
   })
   const app = build()
 
+  // test with defaults
   const response = await app.inject({
     method: 'GET',
     url: '/api/find-issues'
@@ -165,4 +171,17 @@ tap.test('tests the "/api/find-issues" route', async t => {
   }
   tap.equal(response.statusCode, 200, 'returns a status code of 200')
   tap.equal(response.body, JSON.stringify(expectedResponseBody))
+
+  expectedResponseBody.issues[0].body = mockIssue.body
+  expectedResponseBody.issues[1].body = mockIssue.body
+
+  // test with specifying query params
+  const response2 = await app.inject({
+    method: 'GET',
+    url: '/api/find-issues?org=test&includeBody=true&labels=1&labels=2'
+  })
+
+  tap.equal(response2.statusCode, 200, 'returns a status code of 200')
+  tap.equal(JSON.parse(response2.body).issues[0].body, mockIssue.body)
+  tap.equal(JSON.parse(response2.body).issues[1].body, mockIssue.body)
 })
