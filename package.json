@@ -38,7 +38,6 @@
     "@octokit/rest": "^18.12.0",
     "dotenv": "^16.0.0",
     "fastify": "^3.29.0",
-    "fastify-cors": "^6.1.0",
     "pino": "^7.11.0"
   }
 }
