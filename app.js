@@ -1,7 +1,6 @@
 'use strict'
 
 const fastify = require('fastify')
-const logger = require('pino')()
 
 const { fetchIssues, getGithubClient } = require('./fetchIssues')
 
@@ -27,7 +26,7 @@ function build(opts = {}) {
       }
     },
     handler: async function (request, reply) {
-      logger.info('issues requested')
+      request.log.info('issues requested')
       let { org, labels, includeBody } = request.query
 
       if (!org) {
