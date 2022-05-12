@@ -1,29 +1,21 @@
 'use strict'
 
-require('dotenv').config()
-
-const fastify = require('fastify')({
-  logger: true
-})
-const logger = require('pino')()
-
 const { Octokit } = require('@octokit/rest')
 
-const octokit = new Octokit({
-  auth: process.env.GH_AUTH_TOKEN
-})
+/* istanbul ignore next */
+const getGithubClient = () => {
+  /* istanbul ignore next */
+  return new Octokit({
+    auth: process.env.GH_AUTH_TOKEN
+  })
+}
 
-fastify.register(require('@fastify/cors'), {
-  methods: ['GET']
-})
-
-const fetchIssues = async (includeBody, labels, org) => {
+const fetchIssues = async (includeBody, labels, org, client) => {
   const itemSearchResults = await Promise.all(
     labels.map(async label => {
-      const issues = await octokit.search.issuesAndPullRequests({
+      const issues = await client.search.issuesAndPullRequests({
         q: `is:issue is:open sort:updated-desc label:"${label}" org:"${org}"`
       })
-
       return issues.data.items
     })
   )
@@ -61,42 +53,4 @@ const fetchIssues = async (includeBody, labels, org) => {
   return Array.from(dedupeMap.values())
 }
 
-fastify.route({
-  method: 'GET',
-  url: '/api/find-issues',
-  schema: {
-    querystring: {
-      org: { type: 'string' },
-      labels: { type: 'array' },
-      includeBody: { type: 'string' }
-    },
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          issues: { type: 'array' }
-        }
-      }
-    }
-  },
-  handler: async function (request, reply) {
-    logger.info('issues requested')
-    let { org, labels, includeBody } = request.query
-
-    if (!org) {
-      org = 'fastify'
-    }
-
-    if (!labels || !labels.length) {
-      labels = ['help wanted', 'good first issue']
-    }
-
-    includeBody = includeBody === 'true'
-
-    const issues = await fetchIssues(includeBody, labels, org)
-
-    reply.send({ issues })
-  }
-})
-
-fastify.listen(process.env.PORT || 3000, '0.0.0.0')
+module.exports = { fetchIssues, getGithubClient }
