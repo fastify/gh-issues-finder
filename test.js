@@ -126,7 +126,7 @@ tap.test('tests the "/api/find-issues" route', async t => {
   })
 
   const expectedResponseBody = {
-    issues: [
+    results: [
       {
         url: 'https://github.com/fastify/help/issues/478',
         title: 'Full text search with mongoDB',
@@ -172,8 +172,8 @@ tap.test('tests the "/api/find-issues" route', async t => {
   tap.equal(response.statusCode, 200, 'returns a status code of 200')
   tap.equal(response.body, JSON.stringify(expectedResponseBody))
 
-  expectedResponseBody.issues[0].body = mockIssue.body
-  expectedResponseBody.issues[1].body = mockIssue.body
+  expectedResponseBody.results[0].body = mockIssue.body
+  expectedResponseBody.results[1].body = mockIssue.body
 
   // test with specifying query params
   const response2 = await app.inject({
@@ -182,6 +182,6 @@ tap.test('tests the "/api/find-issues" route', async t => {
   })
 
   tap.equal(response2.statusCode, 200, 'returns a status code of 200')
-  tap.equal(JSON.parse(response2.body).issues[0].body, mockIssue.body)
-  tap.equal(JSON.parse(response2.body).issues[1].body, mockIssue.body)
+  tap.equal(JSON.parse(response2.body).results[0].body, mockIssue.body)
+  tap.equal(JSON.parse(response2.body).results[1].body, mockIssue.body)
 })

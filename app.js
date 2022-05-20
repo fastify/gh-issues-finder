@@ -7,6 +7,8 @@ const { fetchIssues, getGithubClient } = require('./fetchIssues')
 function build(opts = {}) {
   const app = fastify(opts)
 
+  app.register(require('@fastify/cors'), {})
+
   app.route({
     method: 'GET',
     url: '/api/find-issues',
@@ -20,7 +22,7 @@ function build(opts = {}) {
         200: {
           type: 'object',
           properties: {
-            issues: { type: 'array' }
+            results: { type: 'array' }
           }
         }
       }
@@ -46,7 +48,7 @@ function build(opts = {}) {
         getGithubClient()
       )
 
-      reply.send({ issues })
+      reply.send({ results: issues })
     }
   })
   return app
