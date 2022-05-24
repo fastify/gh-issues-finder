@@ -27,7 +27,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
-    "lint-staged": "^12.4.1",
+    "lint-staged": "^12.4.2",
     "pino-pretty": "^7.6.1",
     "prettier": "^2.6.2",
     "sinon": "^14.0.0",
