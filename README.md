@@ -2,23 +2,17 @@
 
 [![CD](https://github.com/nearform/gh-issues-finder/actions/workflows/cd.yml/badge.svg?event=push)](https://github.com/nearform/gh-issues-finder/actions/workflows/cd.yml)
 
-  
-
 # gh-issues-finder
 
 Tool to help find issues that you can contribute to
 
-
 Thanks to @GlenTiki for the original at https://github.com/GlenTiki/gh-issue-finder
-
 
 # Usage
 
 The main usage of this is to fetch issues in the fastify github org tagged as a "good first issue" so that they can be displayed on the website for anyone looking to get started.
 
-
 An example with all query params: `/api/find-issues?org=test&includeBody=true&labels=test1&labels=test2`
-
 
 If not specified, `org` defaults to `fastify`, includeBody (whether the description of the issues is included or not in the response) to `false` and labels to `['help wanted', 'good first issue']`.
 
@@ -89,13 +83,13 @@ Example response:
 
 - In the `Settings` of your GitHub repo, go to `Secrets` and create the `New repository secret` with the names and values below:
 
--  `GCP_PROJECT_ID`: The [ID](https://support.google.com/googleapi/answer/7014113?hl=en) of the GCP project as found in your GCP Account
+- `GCP_PROJECT_ID`: The [ID](https://support.google.com/googleapi/answer/7014113?hl=en) of the GCP project as found in your GCP Account
 
--  `GCP_CLOUDRUN_SERVICE_NAME`: The name of the cloud run service, you can select any name that you prefer
+- `GCP_CLOUDRUN_SERVICE_NAME`: The name of the cloud run service, you can select any name that you prefer
 
--  `GCP_CLOUDRUN_SERVICE_REGION`: The [region](https://cloud.google.com/compute/docs/regions-zones) in the GCP that you want to create the cloud run service
+- `GCP_CLOUDRUN_SERVICE_REGION`: The [region](https://cloud.google.com/compute/docs/regions-zones) in the GCP that you want to create the cloud run service
 
--  `GCP_SA_KEY`: The key that you created for your service account with the permissions to deploy the app. This is a JSON object and should be used as-is.
+- `GCP_SA_KEY`: The key that you created for your service account with the permissions to deploy the app. This is a JSON object and should be used as-is.
 
 - After the steps above are configured, go to `Actions` in your GitHub repo and run the CD workflow that is created in the folder `.git/workflows/cd.yaml`. The file is already configured with the action to deploy the cloud run service using the secrets that were created.
 
