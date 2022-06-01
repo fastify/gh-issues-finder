@@ -80,4 +80,5 @@ Example response:
    - `GCP_SA_KEY`: The key that you created for your service account with the permissions to deploy the app. This is a JSON object and should be used as-is
 
 After the steps above have been completed, go to `Actions` in your GitHub repo and run the CD workflow located in `.git/workflows/cd.yml`. The file is already configured with the action to deploy the cloud run service using the secrets that were created.
+
 Once the workflow has run, go to your GCP account and open the "Cloud Run" page to see the details of the deployed service.
