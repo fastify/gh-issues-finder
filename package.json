@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^8.0.0",
-    "@octokit/rest": "^18.12.0",
+    "@octokit/rest": "^19.0.3",
     "dotenv": "^16.0.1",
     "fastify": "^4.2.0"
   }
