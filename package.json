@@ -24,7 +24,7 @@
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "eslint": "^8.30.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
