@@ -3,11 +3,21 @@
 const fastify = require('fastify')
 
 const { fetchIssues, getGithubClient } = require('./fetchIssues')
+const { createCache } = require('async-cache-dedupe')
 
 function build(opts = {}) {
   const app = fastify(opts)
+  const cache = createCache({
+    ttl: 5 * 60, // 5 minutes
+    stale: 60,
+    storage: { type: 'memory' }
+  })
 
   app.register(require('@fastify/cors'), {})
+
+  cache.define('fetchIssues', async ({ includeBody, labels, org }) => {
+    return await fetchIssues(includeBody, labels, org, getGithubClient())
+  })
 
   app.route({
     method: 'GET',
@@ -27,7 +37,7 @@ function build(opts = {}) {
         }
       }
     },
-    handler: async function (request, reply) {
+    handler: async function (request) {
       request.log.info('issues requested')
       let { org, labels, includeBody } = request.query
 
@@ -41,14 +51,13 @@ function build(opts = {}) {
 
       includeBody = includeBody === 'true'
 
-      const issues = await fetchIssues(
+      const issues = await cache.fetchIssues({
         includeBody,
         labels,
-        org,
-        getGithubClient()
-      )
+        org
+      })
 
-      reply.send({ results: issues })
+      return { results: issues }
     }
   })
   return app
