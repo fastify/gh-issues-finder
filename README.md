@@ -79,7 +79,7 @@ Example response:
    - `GCP_CLOUDRUN_SERVICE_NAME`: The name of the cloud run service, you can select any name that you prefer
    - `GCP_CLOUDRUN_SERVICE_REGION`: The [region](https://cloud.google.com/compute/docs/regions-zones) in the GCP that you want to create the cloud run service
    - `GCP_SA_KEY`: The key that you created for your service account with the permissions to deploy the app. This is a JSON object and should be used as-is
-   - `GH_ACCESS_TOKEN`: The Github Personal Access Token created in the last step.
+   - `GH_AUTH_TOKEN`: The Github Personal Access Token created in the last step.
 
 After the steps above have been completed, go to `Actions` in your GitHub repo and run the CD workflow located in `.git/workflows/cd.yml`. The file is already configured with the action to deploy the cloud run service using the secrets that were created.
 

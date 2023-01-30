@@ -26,5 +26,5 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           flags: --allow-unauthenticated --timeout 1800
           env_vars: |
-            GH_AUTH_TOKEN=${{ secrets.GH_ACCESS_TOKEN }}
+            GH_AUTH_TOKEN=${{ secrets.GH_AUTH_TOKEN }}
           source: .
