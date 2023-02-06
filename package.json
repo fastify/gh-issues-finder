@@ -39,7 +39,7 @@
   "dependencies": {
     "@fastify/cors": "^8.2.0",
     "@octokit/rest": "^19.0.7",
-    "async-cache-dedupe": "^1.8.0",
+    "async-cache-dedupe": "^1.8.1",
     "dotenv": "^16.0.3",
     "fastify": "^4.12.0"
   }
