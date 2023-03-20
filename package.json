@@ -37,7 +37,7 @@
     "*.{js,jsx}": "eslint --cache --fix"
   },
   "dependencies": {
-    "@fastify/cors": "^8.2.0",
+    "@fastify/cors": "^8.2.1",
     "@octokit/rest": "^19.0.7",
     "async-cache-dedupe": "^1.10.0",
     "dotenv": "^16.0.3",
