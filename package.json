@@ -41,6 +41,6 @@
     "@octokit/rest": "^19.0.7",
     "async-cache-dedupe": "^1.10.2",
     "dotenv": "^16.0.3",
-    "fastify": "^4.15.0"
+    "fastify": "^4.17.0"
   }
 }
