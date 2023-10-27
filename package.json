@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Tool to help find issues hat you can contribute to",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
     "lint": "eslint .",
     "test": "tap test.js",
