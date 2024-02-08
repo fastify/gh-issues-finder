@@ -3,6 +3,9 @@ node_modules
 
 # JetBrains IDEs
 .idea
+
+#tap files
+.tap/
 # Visual Studio Code
 .vscode
 
