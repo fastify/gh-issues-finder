@@ -41,7 +41,7 @@
     "@fastify/cors": "^9.0.1",
     "@octokit/rest": "^20.0.2",
     "async-cache-dedupe": "^2.0.0",
-    "dotenv": "^16.4.1",
+    "dotenv": "^16.4.2",
     "fastify": "^4.26.0"
   }
 }
