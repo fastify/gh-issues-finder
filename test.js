@@ -1,7 +1,6 @@
 'use strict'
 
 const tap = require('tap')
-const sinon = require('sinon')
 
 const { fetchIssues } = require('./fetchIssues')
 
@@ -88,24 +87,26 @@ const mockSearchIssuesAndPullRequests = {
 }
 
 tap.test('tests the "/api/find-issues" route', async t => {
-  const searchIssuesStub = sinon.stub()
+  let i = 0
 
-  searchIssuesStub.onCall(0).returns({
-    ...mockSearchIssuesAndPullRequests,
-    data: { ...mockIssuesData, items: [mockIssue1] }
-  })
-  searchIssuesStub.onCall(1).returns({
-    ...mockSearchIssuesAndPullRequests,
-    data: { ...mockIssuesData, items: [mockIssue2] }
-  })
-  searchIssuesStub.onCall(2).returns({
-    ...mockSearchIssuesAndPullRequests,
-    data: { ...mockIssuesData, items: [mockIssue1] }
-  })
-  searchIssuesStub.onCall(3).returns({
-    ...mockSearchIssuesAndPullRequests,
-    data: { ...mockIssuesData, items: [mockIssue2] }
-  })
+  function searchIssuesStub() {
+    switch(i++) {
+      case 0:
+      case 2:
+        return {
+          ...mockSearchIssuesAndPullRequests,
+          data: { ...mockIssuesData, items: [mockIssue1] }
+        }
+      case 1:
+      case 3:
+        return {
+          ...mockSearchIssuesAndPullRequests,
+          data: { ...mockIssuesData, items: [mockIssue2] }
+        }
+      default:
+        throw new Error('Unexpected call to searchIssuesStub')
+    }
+  }
 
   const build = t.mock('./app', {
     './fetchIssues': {
