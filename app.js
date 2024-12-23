@@ -2,16 +2,25 @@
 
 const fastify = require('fastify')
 
-const { fetchIssues, getGithubClient } = require('./fetchIssues')
+const { fetchIssues: defaultFetchIssues, getGithubClient: defaultGetGithubClient } = require('./fetchIssues')
 const { createCache } = require('async-cache-dedupe')
 
-function build (opts = {}) {
+function build (opts) {
   const app = fastify(opts)
   const cache = createCache({
     ttl: 5 * 60, // 5 minutes
     stale: 60,
     storage: { type: 'memory' }
   })
+
+  const {
+    fetchIssues,
+    getGithubClient
+  } = {
+    fetchIssues: defaultFetchIssues,
+    getGithubClient: defaultGetGithubClient,
+    ...opts
+  }
 
   app.register(require('@fastify/cors'), {})
 
@@ -24,9 +33,12 @@ function build (opts = {}) {
     url: '/api/find-issues',
     schema: {
       querystring: {
-        org: { type: 'string' },
-        labels: { type: 'array' },
-        includeBody: { type: 'string' }
+        type: 'object',
+        properties: {
+          org: { type: 'string' },
+          labels: { type: 'array' },
+          includeBody: { type: 'string' }
+        }
       },
       response: {
         200: {

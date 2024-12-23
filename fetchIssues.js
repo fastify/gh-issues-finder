@@ -2,13 +2,13 @@
 
 const { Octokit } = require('@octokit/rest')
 
-/* istanbul ignore next */
+/* c8 ignore start */
 const getGithubClient = () => {
-  /* istanbul ignore next */
   return new Octokit({
     auth: process.env.GH_AUTH_TOKEN
   })
 }
+/* c8 ignore stop */
 
 const fetchIssues = async (includeBody, labels, org, client) => {
   const itemSearchResults = await Promise.all(
