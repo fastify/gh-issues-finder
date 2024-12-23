@@ -1,6 +1,6 @@
-'use strict'
+import neostandard from 'neostandard'
 
-module.exports = require('neostandard')({
-  ignores: require('neostandard').resolveIgnoresFromGitignore(),
+export default neostandard({
+  ignores: (await import('neostandard')).resolveIgnoresFromGitignore(),
   ts: true
 })

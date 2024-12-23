@@ -1,6 +1,6 @@
-'use strict'
+import { build } from './app.js'
 
-const server = require('./app')({
+const server = await build({
   logger: true
 })
 
