@@ -1,6 +1,4 @@
-'use strict'
-
-const { Octokit } = require('@octokit/rest')
+import { Octokit } from '@octokit/rest'
 
 /* c8 ignore start */
 const getGithubClient = () => {
@@ -53,4 +51,4 @@ const fetchIssues = async (includeBody, labels, org, client) => {
   return Array.from(dedupeMap.values())
 }
 
-module.exports = { fetchIssues, getGithubClient }
+export { fetchIssues, getGithubClient }

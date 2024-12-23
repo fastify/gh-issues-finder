@@ -1,7 +1,5 @@
-'use strict'
-
-const { test } = require('node:test')
-const { fetchIssues } = require('./fetchIssues')
+import { test } from 'node:test'
+import { fetchIssues } from './fetch-issues.mjs'
 
 const mockIssue = {
   url: 'https://api.github.com/repos/fastify/help/issues/478',
@@ -107,8 +105,8 @@ test('tests the "/api/find-issues" route', async t => {
     }
   }
 
-  const build = require('./app')
-  const app = build({
+  const { build } = await import('./app.mjs')
+  const app = await build({
     fetchIssues,
     getGithubClient: () => {
       return {
