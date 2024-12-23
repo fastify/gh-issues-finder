@@ -2,9 +2,9 @@
 
 const { Octokit } = require('@octokit/rest')
 
-/* istanbul ignore next */
+/* c8 ignore next */
 const getGithubClient = () => {
-  /* istanbul ignore next */
+  /* c8 ignore start */
   return new Octokit({
     auth: process.env.GH_AUTH_TOKEN
   })
