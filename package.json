@@ -32,7 +32,6 @@
     "globals": "^15.13.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
-    "pino-pretty": "^13.0.0",
     "prettier": "^3.4.2",
     "sinon": "^19.0.2",
     "tap": "^16.3.8"
