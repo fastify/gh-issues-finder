@@ -1,7 +1,6 @@
 'use strict'
 
-const tap = require('tap')
-
+const { test } = require('node:test')
 const { fetchIssues } = require('./fetchIssues')
 
 const mockIssue = {
@@ -86,7 +85,7 @@ const mockSearchIssuesAndPullRequests = {
   status: 200
 }
 
-tap.test('tests the "/api/find-issues" route', async t => {
+test('tests the "/api/find-issues" route', async t => {
   let i = 0
 
   function searchIssuesStub() {
@@ -108,17 +107,15 @@ tap.test('tests the "/api/find-issues" route', async t => {
     }
   }
 
-  const build = t.mock('./app', {
-    './fetchIssues': {
-      fetchIssues,
-      getGithubClient: () => {
-        return {
-          search: { issuesAndPullRequests: () => searchIssuesStub() }
-        }
+  const build = require('./app')
+  const app = build({
+    fetchIssues,
+    getGithubClient: () => {
+      return {
+        search: { issuesAndPullRequests: () => searchIssuesStub() }
       }
     }
   })
-  const app = build()
 
   // test with defaults
   const response = await app.inject({
@@ -170,8 +167,8 @@ tap.test('tests the "/api/find-issues" route', async t => {
       }
     ]
   }
-  tap.equal(response.statusCode, 200, 'returns a status code of 200')
-  tap.equal(response.body, JSON.stringify(expectedResponseBody))
+  t.assert.strictEqual(response.statusCode, 200, 'returns a status code of 200')
+  t.assert.strictEqual(response.body, JSON.stringify(expectedResponseBody))
 
   expectedResponseBody.results[0].body = mockIssue.body
   expectedResponseBody.results[1].body = mockIssue.body
@@ -182,7 +179,8 @@ tap.test('tests the "/api/find-issues" route', async t => {
     url: '/api/find-issues?org=test&includeBody=true&labels=1&labels=2'
   })
 
-  tap.equal(response2.statusCode, 200, 'returns a status code of 200')
-  tap.equal(JSON.parse(response2.body).results[0].body, mockIssue.body)
-  tap.equal(JSON.parse(response2.body).results[1].body, mockIssue.body)
+  t.assert.strictEqual(response2.statusCode, 200, 'returns a status code of 200')
+  t.assert.deepStrictEqual(JSON.parse(response2.body).results[0].body, mockIssue.body)
+  t.assert.deepStrictEqual(JSON.parse(response2.body).results[1].body, mockIssue.body)
+
 })
