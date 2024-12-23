@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",
-    "@octokit/rest": "^20.1.1",
+    "@octokit/rest": "^21.0.2",
     "async-cache-dedupe": "^2.2.0",
     "fastify": "^5.2.0"
   }
