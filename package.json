@@ -2,7 +2,7 @@
   "name": "gh-issues-finder",
   "version": "1.0.0",
   "description": "Tool to help find issues hat you can contribute to",
-  "main": "server.mjs",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "lint": "eslint .",

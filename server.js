@@ -1,4 +1,4 @@
-import { build } from './app.mjs'
+import { build } from './app.js'
 
 const server = await build({
   logger: true

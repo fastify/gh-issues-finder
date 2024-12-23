@@ -1,5 +1,5 @@
 import { test } from 'node:test'
-import { fetchIssues } from './fetch-issues.mjs'
+import { fetchIssues } from './fetch-issues.js'
 
 const mockIssue = {
   url: 'https://api.github.com/repos/fastify/help/issues/478',
@@ -105,7 +105,7 @@ test('tests the "/api/find-issues" route', async t => {
     }
   }
 
-  const { build } = await import('./app.mjs')
+  const { build } = await import('./app.js')
   const app = await build({
     fetchIssues,
     getGithubClient: () => {

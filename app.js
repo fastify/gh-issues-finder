@@ -1,6 +1,6 @@
 import fastify from 'fastify'
 
-import { fetchIssues as defaultFetchIssues, getGithubClient as defaultGetGithubClient } from './fetch-issues.mjs'
+import { fetchIssues as defaultFetchIssues, getGithubClient as defaultGetGithubClient } from './fetch-issues.js'
 import { createCache } from 'async-cache-dedupe'
 
 export async function build (opts) {
