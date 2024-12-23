@@ -88,8 +88,8 @@ const mockSearchIssuesAndPullRequests = {
 test('tests the "/api/find-issues" route', async t => {
   let i = 0
 
-  function searchIssuesStub() {
-    switch(i++) {
+  function searchIssuesStub () {
+    switch (i++) {
       case 0:
       case 2:
         return {
@@ -182,5 +182,4 @@ test('tests the "/api/find-issues" route', async t => {
   t.assert.strictEqual(response2.statusCode, 200, 'returns a status code of 200')
   t.assert.deepStrictEqual(JSON.parse(response2.body).results[0].body, mockIssue.body)
   t.assert.deepStrictEqual(JSON.parse(response2.body).results[1].body, mockIssue.body)
-
 })
