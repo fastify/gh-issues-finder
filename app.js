@@ -24,9 +24,12 @@ function build(opts = {}) {
     url: '/api/find-issues',
     schema: {
       querystring: {
-        org: { type: 'string' },
-        labels: { type: 'array' },
-        includeBody: { type: 'string' }
+        type: 'object',
+        properties: {
+          org: { type: 'string' },
+          labels: { type: 'array' },
+          includeBody: { type: 'string' }
+        }
       },
       response: {
         200: {
