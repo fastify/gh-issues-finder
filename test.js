@@ -89,8 +89,8 @@ const mockSearchIssuesAndPullRequests = {
 tap.test('tests the "/api/find-issues" route', async t => {
   let i = 0
 
-  function searchIssuesStub() {
-    switch(i++) {
+  function searchIssuesStub () {
+    switch (i++) {
       case 0:
       case 2:
         return {

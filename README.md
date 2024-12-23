@@ -2,7 +2,8 @@
 
 [![Continuous Integration](https://github.com/fastify/gh-issues-finder/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/fastify/gh-issues-finder/actions/workflows/ci.yml)
 [![CD](https://github.com/fastify/gh-issues-finder/actions/workflows/cd.yml/badge.svg?event=push)](https://github.com/fastify/gh-issues-finder/actions/workflows/cd.yml)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
+[![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
+
 
 Tool to help find issues that you can contribute to
 

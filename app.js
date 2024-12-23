@@ -5,7 +5,7 @@ const fastify = require('fastify')
 const { fetchIssues, getGithubClient } = require('./fetchIssues')
 const { createCache } = require('async-cache-dedupe')
 
-function build(opts = {}) {
+function build (opts = {}) {
   const app = fastify(opts)
   const cache = createCache({
     ttl: 5 * 60, // 5 minutes
