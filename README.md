@@ -1,7 +1,7 @@
 # gh-issues-finder
 
-[![Continuous Integration](https://github.com/fastify/gh-issues-finder/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/fastify/gh-issues-finder/actions/workflows/ci.yml)
-[![CD](https://github.com/fastify/gh-issues-finder/actions/workflows/cd.yml/badge.svg?event=push)](https://github.com/fastify/gh-issues-finder/actions/workflows/cd.yml)
+[![CI](https://github.com/fastify/gh-issues-finder/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/fastify/gh-issues-finder/actions/workflows/ci.yml)
+[![CD](https://github.com/fastify/gh-issues-finder/actions/workflows/cd.yml/badge.svg?branch=main)](https://github.com/fastify/gh-issues-finder/actions/workflows/cd.yml)
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
 
 
