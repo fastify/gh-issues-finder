@@ -74,11 +74,13 @@ Example response:
 2. Create a key for the service account, this key will be configured as a secret in the GitHub actions to be able to deploy the app
 3. For the service account, [grant the permissions "Service Account User", "Cloud Run Admin", "Storage Admin"](https://github.com/google-github-actions/deploy-cloudrun) and "Cloud Build Service Account", this last permission is necessary since cloud build will be used to build the image based on the source code directly
 4. Clone this repo to your GitHub account
-5. In the `Settings` of your GitHub repo, go to `Secrets` and create the `New repository secret` with the names and values below:
+5. Create a [Github Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `repo: public_repo` scope. Copy this token for use in the next step.
+6. In the `Settings` of your GitHub repo, go to `Secrets` and create the `New repository secret` with the names and values below:
    - `GCP_PROJECT_ID`: The [ID](https://support.google.com/googleapi/answer/7014113?hl=en) of the GCP project as found in your GCP Account
    - `GCP_CLOUDRUN_SERVICE_NAME`: The name of the cloud run service, you can select any name that you prefer
    - `GCP_CLOUDRUN_SERVICE_REGION`: The [region](https://cloud.google.com/compute/docs/regions-zones) in the GCP that you want to create the cloud run service
    - `GCP_SA_KEY`: The key that you created for your service account with the permissions to deploy the app. This is a JSON object and should be used as-is
+   - `GH_AUTH_TOKEN`: The Github Personal Access Token created in the last step.
 
 After the steps above have been completed, go to `Actions` in your GitHub repo and run the CD workflow located in `.git/workflows/cd.yml`. The file is already configured with the action to deploy the cloud run service using the secrets that were created.
 
