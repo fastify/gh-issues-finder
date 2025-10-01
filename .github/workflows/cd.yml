@@ -26,7 +26,7 @@ jobs:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
       - id: 'deploy'
-        uses: google-github-actions/deploy-cloudrun@147732842f8a61ce9bd3b3f8e9f6597fe991ad65 # v2.7.4
+        uses: google-github-actions/deploy-cloudrun@2028e2d7d30a78c6910e0632e48dd561b064884d # v3.0.1
         with:
           service: ${{ secrets.GCP_CLOUDRUN_SERVICE_NAME }}
           region: ${{ secrets.GCP_CLOUDRUN_SERVICE_REGION }}
