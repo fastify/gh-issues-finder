@@ -66,20 +66,73 @@ Example response:
 }
 ```
 
+## Configuration
+
+### GitHub Authentication Token
+
+To avoid rate limiting when searching for issues across multiple organizations, the application requires a GitHub Personal Access Token (PAT) to be configured as the `GH_AUTH_TOKEN` environment variable.
+
+#### Creating a GitHub Personal Access Token
+
+1. Go to GitHub Settings → [Developer settings → Personal access tokens → Tokens (classic)](https://github.com/settings/tokens)
+2. Click "Generate new token (classic)"
+3. Give your token a descriptive name (e.g., "gh-issues-finder")
+4. Select the following scopes:
+   - `public_repo` (required to search public repositories)
+   - `read:org` (required to search organization repositories)
+5. Click "Generate token"
+6. **Important:** Copy the generated token immediately - you won't be able to see it again!
+
+#### Configuring GH_AUTH_TOKEN
+
+**For local development:**
+
+Create a `.env` file in the root directory (use `.env.sample` as a template):
+
+```bash
+GH_AUTH_TOKEN=your_personal_access_token_here
+```
+
+**For GCP Cloud Run deployment:**
+
+When deploying to Google Cloud Run, set the `GH_AUTH_TOKEN` as a secret or environment variable:
+
+1. In your GCP project, go to Cloud Run → Service → "Edit & Deploy New Revision"
+2. Under "Containers, Volumes, Secrets, and Security"
+3. Click "Reference a secret" or "Add variable"
+4. Create a secret named `GH_AUTH_TOKEN` with your GitHub token value
+5. Or add it directly as an environment variable if preferred
+
+**Using with Docker:**
+
+```bash
+docker run -e GH_AUTH_TOKEN=your_token_here gh-issues-finder
+```
+
+#### Why is this needed?
+
+GitHub API has rate limits:
+- Unauthenticated requests: 60 requests per hour
+- Authenticated requests: 5,000 requests per hour
+
+Without a token, the application will quickly hit rate limits when searching issues across multiple organizations or labels, especially when deployed as a public service.
+
+---
+
 ## How to deploy
 
-- Prerequisites: a GCP project with the [cloud run and cloud build APIs enabled](https://cloud.google.com/apis/docs/getting-started)
+- Prerequisites: a GCP project with [cloud run and cloud build APIs enabled](https://cloud.google.com/apis/docs/getting-started)
 
-1. Create a service account in the IAM & Admin console to be used to deploy the app
-2. Create a key for the service account, this key will be configured as a secret in the GitHub actions to be able to deploy the app
-3. For the service account, [grant the permissions "Service Account User", "Cloud Run Admin", "Storage Admin"](https://github.com/google-github-actions/deploy-cloudrun) and "Cloud Build Service Account", this last permission is necessary since cloud build will be used to build the image based on the source code directly
+1. Create a service account in IAM & Admin console to be used to deploy app
+2. Create a key for the service account, this key will be configured as a secret in GitHub actions to be able to deploy app
+3. For the service account, [grant permissions "Service Account User", "Cloud Run Admin", "Storage Admin"](https://github.com/google-github-actions/deploy-cloudrun) and "Cloud Build Service Account", this last permission is necessary since cloud build will be used to build image based on source code directly
 4. Clone this repo to your GitHub account
-5. In the `Settings` of your GitHub repo, go to `Secrets` and create the `New repository secret` with the names and values below:
-   - `GCP_PROJECT_ID`: The [ID](https://support.google.com/googleapi/answer/7014113?hl=en) of the GCP project as found in your GCP Account
+5. In `Settings` of your GitHub repo, go to `Secrets` and create `New repository secret` with names and values below:
+   - `GCP_PROJECT_ID`: The [ID](https://support.google.com/googleapi/answer/7014113?hl=en) of GCP project as found in your GCP Account
    - `GCP_CLOUDRUN_SERVICE_NAME`: The name of the cloud run service, you can select any name that you prefer
-   - `GCP_CLOUDRUN_SERVICE_REGION`: The [region](https://cloud.google.com/compute/docs/regions-zones) in the GCP that you want to create the cloud run service
-   - `GCP_SA_KEY`: The key that you created for your service account with the permissions to deploy the app. This is a JSON object and should be used as-is
+   - `GCP_CLOUDRUN_SERVICE_REGION`: The [region](https://cloud.google.com/compute/docs/regions-zones) in GCP that you want to create the cloud run service
+   - `GCP_SA_KEY`: The key that you created for your service account with permissions to deploy app. This is a JSON object and should be used as-is
 
-After the steps above have been completed, go to `Actions` in your GitHub repo and run the CD workflow located in `.git/workflows/cd.yml`. The file is already configured with the action to deploy the cloud run service using the secrets that were created.
+After steps above have been completed, go to `Actions` in your GitHub repo and run the CD workflow located in `.github/workflows/cd.yml`. The file is already configured with action to deploy cloud run service using the secrets that were created.
 
-Once the workflow has run, go to your GCP account and open the "Cloud Run" page to see the details of the deployed service.
+Once workflow has run, go to your GCP account and open "Cloud Run" page to see the details of the deployed service.
