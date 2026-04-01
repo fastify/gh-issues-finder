@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/nearform/gh-issues-finder#readme",
   "devDependencies": {
-    "@commitlint/cli": "^20.4.2",
+    "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.4.2",
     "c8": "^11.0.0",
     "eslint": "^9.39.2",
