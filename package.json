@@ -23,22 +23,22 @@
   },
   "homepage": "https://github.com/nearform/gh-issues-finder#readme",
   "devDependencies": {
-    "@commitlint/cli": "^20.5.3",
-    "@commitlint/config-conventional": "^20.5.3",
-    "c8": "^11.0.0",
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.0",
+    "c8": "^12.0.0",
     "eslint": "^9.39.2",
-    "globals": "^17.6.0",
+    "globals": "^17.11.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
+    "lint-staged": "^17.3.0",
     "neostandard": "^0.13.0"
   },
   "lint-staged": {
     "*.{js,jsx}": "eslint --cache --fix"
   },
   "dependencies": {
-    "@fastify/cors": "^11.2.0",
+    "@fastify/cors": "^11.3.0",
     "@octokit/rest": "^22.0.1",
     "async-cache-dedupe": "^3.4.0",
-    "fastify": "^5.8.5"
+    "fastify": "^5.12.1"
   }
 }
